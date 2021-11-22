@@ -1,0 +1,13 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: default.blockthreats
+spec:
+  tier: default
+  selector: all()
+  types:
+    - Ingress
+  ingress:
+    - action: Deny
+      source:
+        selector: security-action == 'block

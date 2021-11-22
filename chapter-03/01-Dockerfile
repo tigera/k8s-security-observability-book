@@ -1,0 +1,20 @@
+# use alpine 3 as base image
+FROM alpine:3 as builder
+# upgrade all alpine packages
+RUN apk update && apk upgrade
+# add your script into container fs
+ADD your_init_script.sh your_init_script.sh
+RUN chmod u+x your_init_script.sh
+
+# stage 2
+FROM scratch
+
+# shell
+COPY --from=builder /bin/sh /bin/sh
+
+# dependent linux shared libraries
+COPY --from=builder /lib/ld-musl-x86_64.so.1 /lib/ld-musl-x86_64.so.1
+
+ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+ENTRYPOINT ["./your_init_script.sh"]

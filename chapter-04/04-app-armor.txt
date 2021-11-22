@@ -1,0 +1,16 @@
+ #include <tunables/global>
+/{usr/,}bin/ping flags=(complain) {
+    #include <abstractions/base>
+    #include <abstractions/consoles>
+    #include <abstractions/nameservice>
+
+    capability net_raw,
+    capability setuid,
+    network inet raw,
+
+    /bin/ping mixr,
+    /etc/modules.conf r,
+
+    # Site-specific additions and overrides. See local/README for details.
+    #include <local/bin.ping>
+}

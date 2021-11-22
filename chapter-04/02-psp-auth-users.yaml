@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole Policy
+metadata:
+  name: psp-restricted
+rules:
+  - apiGroups:
+      - policy
+    resourceNames:
+      - restricted
+    resources:
+      - podsecuritypolicies
+    verbs:
+      - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: psp-restricted-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: psp-restricted
+subjects:
+  - apiGroup: rbac.authoriation.k8s.io
+    name: system:authenticated
+    kind: Group

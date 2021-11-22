@@ -1,0 +1,17 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: restrict-intern-access
+  namespace: prod-engineering
+spec:
+  serviceAccountSelector: 'role == "intern"'
+  ingress:
+    - action: Allow
+      source:
+        serviceAccounts:
+          selector: 'role == "intern"'
+  egress:
+    - action: Allow
+      destination:
+        serviceAccounts:
+          selector: 'role == "intern"'

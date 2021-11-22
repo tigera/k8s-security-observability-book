@@ -1,0 +1,18 @@
+apiVersion: v1
+metadata:
+  name: pod-se-linux-label
+  namespace: default
+  labels:
+  app: normal-app
+spec:
+  containers:
+    - name: app-container
+      image: alpine:latest
+      args: ["sleep", "10000"]
+  securityContext:
+    seLinuxOptions:
+    level: "s0:c123,c456"
+  volumes:
+    - name: rootfs
+      hostPath:
+        path: /

@@ -1,0 +1,12 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalThreatFeed
+metadata:
+  name: sample-global-threat-feed
+spec:
+  content: IPSet
+  pull:
+    http:
+      url: https://an.example.threat.feed/blacklist
+  globalNetworkSet:
+    labels:
+      security-action: block

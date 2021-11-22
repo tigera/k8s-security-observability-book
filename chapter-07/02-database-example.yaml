@@ -1,0 +1,22 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+name: back-end-policy
+namespace: production
+spec:
+  selector: app == 'back-end'
+  ingress:
+    - action: Allow
+  protocol: TCP
+  source:
+    selector: app == 'front-end'
+  destination:
+  ports:
+    - 80
+  egress:
+    - action: Allow
+      protocol: TCP
+      destination:
+      selector: app == 'database'
+      ports:
+        - 80
